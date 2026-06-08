@@ -117,12 +117,12 @@ def get_book_cover(title, author):
         # Search for the book
         search_url = f"https://openlibrary.org/search.json?title={title}&author={author}&limit=1"
         response = requests.get(search_url, timeout=5)
-        
+
         if response.status_code == 200:
             data = response.json()
             if data.get('docs'):
                 book = data['docs'][0]
-                
+
                 # Get cover ID
                 cover_id = None
                 if 'cover_i' in book:
@@ -134,19 +134,17 @@ def get_book_cover(title, author):
                     cover_response = requests.get(cover_url, timeout=5)
                     if cover_response.status_code == 200:
                         return cover_url
-                        
-                
+
                 if cover_id:
                     cover_url = f"https://covers.openlibrary.org/b/id/{cover_id}-M.jpg"
-                    # Verify the cover exists and is not blank
                     cover_response = requests.get(cover_url, timeout=5)
                     if cover_response.status_code == 200:
                         return cover_url
-                      # No cover found
-                    return "https://via.placeholder.com/150x220?text=No+Cover"
 
-             except Exception:
-                    return "https://via.placeholder.com/150x220?text=No+Cover"    
+        return None
+
+    except Exception as e:
+        return None   
         
         # Fallback: search by title only
         search_url = f"https://openlibrary.org/search.json?q={title}&limit=3"
