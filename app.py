@@ -134,6 +134,7 @@ def get_book_cover(title, author):
                     cover_response = requests.get(cover_url, timeout=5)
                     if cover_response.status_code == 200:
                         return cover_url
+                        
                 
                 if cover_id:
                     cover_url = f"https://covers.openlibrary.org/b/id/{cover_id}-M.jpg"
@@ -141,6 +142,11 @@ def get_book_cover(title, author):
                     cover_response = requests.get(cover_url, timeout=5)
                     if cover_response.status_code == 200:
                         return cover_url
+                      # No cover found
+                    return "https://via.placeholder.com/150x220?text=No+Cover"
+
+             except Exception:
+                    return "https://via.placeholder.com/150x220?text=No+Cover"    
         
         # Fallback: search by title only
         search_url = f"https://openlibrary.org/search.json?q={title}&limit=3"
@@ -154,10 +160,12 @@ def get_book_cover(title, author):
                     cover_response = requests.get(cover_url, timeout=5)
                     if cover_response.status_code == 200:
                         return cover_url
+                        # Fallback image when no cover is available
+                        return "https://via.placeholder.com/150x220?text=No+Cover"
         
-        return None
+        return "https://via.placeholder.com/120x160?text=No+Cover"
     except Exception as e:
-        return None
+        return "https://via.placeholder.com/120x160?text=No+Cover"
 
 def display_book_card(book, index):
     """Display a book recommendation card"""
