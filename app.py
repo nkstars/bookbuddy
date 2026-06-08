@@ -81,7 +81,7 @@ def extract_genre_and_get_recommendations(user_input):
         
        response = model.generate_content(prompt)
 return parse_recommendations(response.text), is_anime_related
-except Exception as e:
+    except Exception as e:
     st.error(f"Error getting recommendations: {str(e)}")
     return [], False
 
