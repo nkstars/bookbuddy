@@ -131,15 +131,11 @@ def get_book_cover(title, author):
                     # Try to get cover by ISBN
                     isbn = book['isbn'][0]
                     cover_url = f"https://covers.openlibrary.org/b/isbn/{isbn}-M.jpg"
-                    cover_response = requests.get(cover_url, timeout=5)
-                    if cover_response.status_code == 200:
-                        return cover_url
+                    return cover_url
 
                 if cover_id:
                     cover_url = f"https://covers.openlibrary.org/b/id/{cover_id}-M.jpg"
-                    cover_response = requests.get(cover_url, timeout=5)
-                    if cover_response.status_code == 200:
-                        return cover_url
+                    return cover_url
 
         return None
 
