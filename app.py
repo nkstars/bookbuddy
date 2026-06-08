@@ -38,7 +38,7 @@ def extract_genre_and_get_recommendations(user_input):
         # Create appropriate prompt for recommendations
         if is_anime_related:
             prompt = f"""
-            Based on this request: '{user_input}', recommend exactly 7 books that include both anime-related content AND general books that match the theme.
+            Based on this request: '{user_input}', recommend exactly 5 books that include both anime-related content AND general books that match the theme.
             
             Mix of recommendations:
             - 3-4 anime-related books (light novels, manga adaptations, or books about anime culture)
@@ -61,7 +61,7 @@ def extract_genre_and_get_recommendations(user_input):
             """
         else:
             prompt = f"""
-            Based on this request: '{user_input}', recommend exactly 7 books.
+            Based on this request: '{user_input}', recommend exactly 5 books.
             
             For each book, provide:
             1. Title (series name only, no volume numbers)
@@ -108,7 +108,7 @@ def parse_recommendations(response_text):
             if 'title' in book_data and 'author' in book_data:
                 books.append(book_data)
     
-    return books[:7]  # Ensure exactly 7 recommendations
+    return books[:5]  # Ensure exactly 5 recommendations
 
 @st.cache_data
 def get_book_cover(title, author):
