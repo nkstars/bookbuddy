@@ -79,11 +79,11 @@ def extract_genre_and_get_recommendations(user_input):
             Ensure all recommendations are in English and focus on series names without volume numbers.
             """
         
-        response = model.generate_content(prompt)
-        return parse_recommendations(response.text), is_anime_related
-    except Exception as e:
-        st.error(f"Error getting recommendations: {str(e)}")
-        return [], False
+       response = model.generate_content(prompt)
+return parse_recommendations(response.text), is_anime_related
+except Exception as e:
+    st.error(f"Error getting recommendations: {str(e)}")
+    return [], False
 
 def parse_recommendations(response_text):
     """Parse the Gemini AI response into structured book data"""
