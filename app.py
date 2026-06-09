@@ -34,22 +34,22 @@ def extract_genre_and_get_recommendations(user_input):
         anime_check_prompt = f"Is this request related to anime, manga, or Japanese animation? '{user_input}'. Answer only YES or NO."
         anime_response = model.generate_content(anime_check_prompt)
         is_anime_related = "YES" in anime_response.text.upper()
-        
+
         # Create appropriate prompt for recommendations
         if is_anime_related:
             prompt = f"""
             Based on this request: '{user_input}', recommend exactly 5 books that include both anime-related content AND general books that match the theme.
-            
+
             Mix of recommendations:
             - 3-4 anime-related books (light novels, manga adaptations, or books about anime culture)
             - 3-4 general books that share similar themes, genres, or storytelling elements
-            
+
             For each book, provide:
             1. Title (series name only, no volume numbers)
             2. Author
             3. A brief 2-3 sentence summary
             4. Genre/Category
-            
+
             Format your response as:
             TITLE: [Book Title]
             AUTHOR: [Author Name]
@@ -62,30 +62,29 @@ def extract_genre_and_get_recommendations(user_input):
         else:
             prompt = f"""
             Based on this request: '{user_input}', recommend exactly 5 books.
-            
+
             For each book, provide:
             1. Title (series name only, no volume numbers)
             2. Author
             3. A brief 2-3 sentence summary
             4. Genre/Category
-            
+
             Format your response as:
             TITLE: [Book Title]
             AUTHOR: [Author Name]
             SUMMARY: [Brief summary]
             GENRE: [Genre]
             ---
-            
+
             Ensure all recommendations are in English and focus on series names without volume numbers.
             """
-        
-    response = model.generate_content(prompt)
+
+        response = model.generate_content(prompt)
         return parse_recommendations(response.text), is_anime_related
 
     except Exception as e:
         st.error(f"Error getting recommendations: {str(e)}")
         return [], False
-
 def parse_recommendations(response_text):
     """Parse the Gemini AI response into structured book data"""
     books = []
