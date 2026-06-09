@@ -79,7 +79,7 @@ def extract_genre_and_get_recommendations(user_input):
             Ensure all recommendations are in English and focus on series names without volume numbers.
             """
         
-             response = model.generate_content(prompt)
+    response = model.generate_content(prompt)
         return parse_recommendations(response.text), is_anime_related
 
     except Exception as e:
